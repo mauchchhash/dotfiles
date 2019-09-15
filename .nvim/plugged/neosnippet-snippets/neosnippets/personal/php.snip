@@ -1,0 +1,45 @@
+snippet m
+abbr public function () {}
+	public function ${1:#:FunctionName}(${2}){
+		${3:TARGET}
+	}
+
+snippet pm
+abbr public function () {}
+	private function ${1:#:FunctionName}(${2}){
+		${3:TARGET}
+	}
+
+snippet rm
+abbr protected function () {}
+	protected function ${1:#:FunctionName}(${2}){
+		${3:TARGET}
+	}
+
+snippet tm
+abbr test function () {}
+    /** @test */
+	public function ${1:#:FunctionName}(${2}){
+		${3:TARGET}
+	}
+
+snippet te
+abbr withoutExceptionHandling()
+    $this->withoutExceptionHandling();
+
+snippet tb
+abbr $this->be()
+    $this->be(factory(User::class)->create());
+
+snippet mi
+abbr markTestIncomplete()
+    $this->markTestIncomplete();
+
+
+# snippet c
+# abbr constructor
+# 	${1:public} $${2:var};
+# 	public function __construct($${3:arg})
+# 	{
+# 		$this->$2 = $$3;
+# 	}
