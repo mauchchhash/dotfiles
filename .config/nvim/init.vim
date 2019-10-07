@@ -8,8 +8,8 @@
 so ~/.nvim/script.vim
 let mapleader = ","
 set tabstop=4                    " a tab is four spaces
-set softtabstop=4                " when hitting <BS>, pretend like a tab is removed, even if spaces
-set expandtab                    " expand tabs by default (overloadable per file type later)
+" set softtabstop=4                " when hitting <BS>, pretend like a tab is removed, even if spaces
+" set expandtab                    " expand tabs by default (overloadable per file type later)
 set shiftwidth=4                 " number of spaces to use for autoindenting
 set backspace=indent,eol,start   " allow backspacing over everything in insert mode
 set tags=tags
@@ -33,7 +33,7 @@ nmap <C-l> <C-w>l
 " todo: neomake,
 nnoremap <leader>n :nohlsearch<cr>
 nnoremap <Leader>vr :e ~/.config/nvim/init.vim<CR>
-nnoremap <Leader>td :e todos.text<CR>
+nnoremap <Leader>td :e todos.txt<CR>
 inoremap <C-l> <Esc>A
 inoremap ;; <Esc>A;
 inoremap ;w <Esc>A;<Esc>:w<cr>
@@ -62,7 +62,7 @@ nnoremap <leader>lm :!php artisan make:
 """""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.nvim/plugged')
 
-" Plug 'flazz/vim-colorschemes'
+Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
@@ -100,19 +100,21 @@ Plug 'skwp/greplace.vim'
 Plug 'Olical/vim-enmasse'
 Plug 'Valloric/MatchTagAlways'
 Plug 'mbbill/undotree'
-Plug 'henrik/vim-indexed-search'
+" Plug 'henrik/vim-indexed-search'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
 Plug 'AndrewRadev/sideways.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'FooSoft/vim-argwrap'
+Plug 'posva/vim-vue'
+Plug 'jceb/vim-orgmode'
 
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " color settings
 " set background=dark
-" colorscheme solarized
-colorscheme dracula
+colorscheme solarized8_dark_high
+" colorscheme dracula
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " nerdtree stuff
 map <C-n> :NERDTreeToggle<CR>
@@ -122,8 +124,17 @@ let NERDTreeShowHidden=1
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP Stuff
 " I don't want to pull up these folders/files when calling CtrlP
-set wildignore+=*/vendor/**
+" set wildignore+=*/vendor/**
 set wildignore+=*/node_modules/**
+set wildignore+=*/tags
+
+" let g:ctrlp_user_command =
+" \ 'find %s -type f | grep -v -P "\.jpg$|/tmp/"'          " MacOSX/Linux
+
+let g:ctrlp_cache_dir = $HOME . '/.cache/ctrlp'
+" if executable('ag')
+"   let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" endif
 " nnoremap <C-/> :CtrlPBuffer<cr>
 " set wildignore+=*/public/forum/**
 
@@ -171,6 +182,7 @@ nnoremap <Leader>ct :bufdo e<cr>:NERDTreeRefreshRoot<cr>:CtrlPClearCache<cr>:Asy
 " let g:airline#extensions#tabline#formatter = 'unique_tail'
 " let g:airline_theme='night_owl'
 let g:airline_theme='simple'
+" let g:airline_theme='solarized'
 " let g:airline_statusline_ontop=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -236,3 +248,6 @@ autocmd FileType javascript nnoremap <Leader>tn :tab split<cr>:terminal node %<c
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " highlightedyank stuff
 let g:highlightedyank_highlight_duration = 100
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" vim-vue stuff
+let g:vue_pre_processors = []
