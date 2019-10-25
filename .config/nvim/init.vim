@@ -21,6 +21,7 @@ set hidden                       " save the undo history when buffer change
 set splitbelow
 set splitright
 set cursorline
+set autoread
 " set autoindent                  " always set autoindenting on
 " set copyindent                  " copy the previous indentation on autoindenting
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -38,6 +39,8 @@ inoremap <C-l> <Esc>A
 inoremap ;; <Esc>A;
 inoremap ;w <Esc>A;<Esc>:w<cr>
 inoremap ,, <Esc>A,
+inoremap {{ <Esc>A{<cr>}<Esc>O
+inoremap ,> <Esc>A => 
 nnoremap ( :bp<cr>
 nnoremap ) :bn<cr>
 nnoremap <leader>w :w<cr>
@@ -47,6 +50,7 @@ nnoremap <leader>q :q<cr>
 nnoremap <leader>Q :q!<cr>
 nnoremap ' `
 nnoremap ` '
+nnoremap <leader>bd :bufdo bd<cr>
 tnoremap <Esc> <C-\><C-n>
 " autocmd BufEnter * silent! normal! g`"
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -63,7 +67,7 @@ nnoremap <leader>lm :!php artisan make:
 call plug#begin('~/.nvim/plugged')
 
 Plug 'flazz/vim-colorschemes'
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'kien/ctrlp.vim'
 Plug 'mattn/emmet-vim'
@@ -80,8 +84,8 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'arnaud-lb/vim-php-namespace', { 'for': 'php' }
 Plug 'jwalton512/vim-blade', { 'for': 'php' }
 Plug 'osyo-manga/vim-over'
-Plug 'Shougo/deoplete.nvim'
-Plug 'deoplete-plugins/deoplete-tag'
+Plug 'Shougo/deoplete.nvim', { 'on': [] }
+Plug 'deoplete-plugins/deoplete-tag', { 'on': [] }
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-repeat'
 Plug 'bling/vim-airline'
@@ -108,13 +112,18 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'FooSoft/vim-argwrap'
 Plug 'posva/vim-vue'
 Plug 'jceb/vim-orgmode'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'liuchengxu/vim-clap'
+Plug 'ap/vim-css-color'
+" Plug 'chiel92/vim-autoformat' " will install it if I need it badly
 
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " color settings
 " set background=dark
-colorscheme solarized8_dark_high
-" colorscheme dracula
+" colorscheme Dark
+colorscheme briofita
+" colorscheme Atelier_EstuaryDark
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " nerdtree stuff
 map <C-n> :NERDTreeToggle<CR>
@@ -127,6 +136,7 @@ let NERDTreeShowHidden=1
 " set wildignore+=*/vendor/**
 set wildignore+=*/node_modules/**
 set wildignore+=*/tags
+nnoremap <leader>df :CtrlPBuffer<cr>
 
 " let g:ctrlp_user_command =
 " \ 'find %s -type f | grep -v -P "\.jpg$|/tmp/"'          " MacOSX/Linux
@@ -145,15 +155,15 @@ let g:ctrlp_match_window = 'min:1,max:10,results:10'
 " vim-php-namespace stuff
 " Automatically adds the corresponding use statement for the name under the cursor.
 function! IPhpInsertUse()
-  call PhpInsertUse()
-  call feedkeys('a',  'n')
+	call PhpInsertUse()
+	call feedkeys('a',  'n')
 endfunction
 autocmd FileType php inoremap <Leader>pu <Esc>:call IPhpInsertUse()<CR>
 autocmd FileType php noremap <Leader>pu :call PhpInsertUse()<CR>
 " Expands the name under the cursor to its fully qualified name.
 function! IPhpExpandClass()
-  call PhpExpandClass()
-  call feedkeys('a', 'n')
+	call PhpExpandClass()
+	call feedkeys('a', 'n')
 endfunction
 autocmd FileType php inoremap <Leader>pe <Esc>:call IPhpExpandClass()<CR>
 autocmd FileType php noremap <Leader>pe :call PhpExpandClass()<CR>
@@ -167,15 +177,15 @@ autocmd BufNewFile,BufRead *.blade.php set ft=html | set ft=phtml | set ft=blade
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-over stuff
 let g:over#command_line#enable_import_commandline_map = 0
-nnoremap <leader>s :OverCommandLine<cr>%s/
+nnoremap <leader>s :OverCommandLine<cr>s/
 vnoremap <leader>s :OverCommandLine<cr>s/
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " deoplete stuff
-let g:deoplete#enable_at_startup = 1
-let deoplete#tag#cache_limit_size = 5000000
+" let g:deoplete#enable_at_startup = 1
+" let deoplete#tag#cache_limit_size = 5000000
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " asyncrun stuff
-nnoremap <Leader>ct :bufdo e<cr>:NERDTreeRefreshRoot<cr>:CtrlPClearCache<cr>:AsyncRun ctags -R --exclude=node_modules<cr>
+nnoremap <Leader>ct :NERDTreeRefreshRoot<cr>:CtrlPClearCache<cr>:AsyncRun ctags -R --exclude=node_modules<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline stuff
 " let g:airline#extensions#tabline#enabled = 1
@@ -200,8 +210,8 @@ ab snpath NERDTree ~/.nvim/plugged/neosnippet-snippets/neosnippets/personal
 let g:neosnippet#snippets_directory = "~/.nvim/plugged/neosnippet-snippets/neosnippets/personal"
 " which disables all runtime snippets
 let g:neosnippet#disable_runtime_snippets = {
-      \   '_' : 1,
-      \ }
+			\   '_' : 1,
+			\ }
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-test stuff
 " make test commands execute using dispatch.vim
@@ -251,3 +261,27 @@ let g:highlightedyank_highlight_duration = 100
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-vue stuff
 let g:vue_pre_processors = []
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" coc stuff
+" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
+endfunction
+
+" Create mappings for function text object, requires document symbols feature of languageserver.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
