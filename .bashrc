@@ -116,6 +116,8 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export NVM_DIR="/home/boss/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 export PATH=~/.config/composer/vendor/bin:$PATH
 export PATH=~/.config/composer/vendor:$PATH
@@ -129,3 +131,7 @@ alias ps='php artisan serve'
 alias tn='tmux new -s '
 alias ta='tmux attach -t '
 alias tl='tmux list-sessions'
+
+
+alias mn='sudo mount /dev/sda2 /media/boss/windows && sudo mount /dev/sda3 /media/boss/uncommon && sudo mount /dev/sda5 /media/boss/common'
+alias umn='sudo umount /dev/sda2 /dev/sda3 /dev/sda5'

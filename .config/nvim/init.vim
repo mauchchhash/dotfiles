@@ -39,7 +39,7 @@ inoremap <C-l> <Esc>A
 inoremap ;; <Esc>A;
 inoremap ;w <Esc>A;<Esc>:w<cr>
 inoremap ,, <Esc>A,
-inoremap {{ <Esc>A{<cr>}<Esc>O
+inoremap ,{ <Esc>A{<cr>}<Esc>O
 inoremap ,> <Esc>A => 
 nnoremap ( :bp<cr>
 nnoremap ) :bn<cr>
@@ -77,8 +77,9 @@ Plug 'kana/vim-textobj-entire'
 Plug 'easymotion/vim-easymotion'
 Plug 'jiangmiao/auto-pairs'
 Plug 'kana/vim-textobj-line'
-Plug 'captbaritone/better-indent-support-for-php-with-html', { 'for': 'php' }
+" Plug 'captbaritone/better-indent-support-for-php-with-html', { 'for': 'php' }
 Plug 'tomtom/tcomment_vim'
+Plug 'scrooloose/nerdcommenter'
 Plug 'tmhedberg/matchit'
 Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'arnaud-lb/vim-php-namespace', { 'for': 'php' }
@@ -115,25 +116,29 @@ Plug 'jceb/vim-orgmode'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vim-clap'
 Plug 'ap/vim-css-color'
-" Plug 'chiel92/vim-autoformat' " will install it if I need it badly
+Plug 'chiel92/vim-autoformat' " will install it if I need it badly
+" Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] } " it's not working
+Plug 'digitaltoad/vim-pug'
 
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " color settings
 " set background=dark
-" colorscheme Dark
-colorscheme briofita
+" colorscheme dracula
+colorscheme gruvbox
+" colorscheme briofita
 " colorscheme Atelier_EstuaryDark
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " nerdtree stuff
 map <C-n> :NERDTreeToggle<CR>
 nnoremap <Leader>N :NERDTreeFind<CR>
-nnoremap <Leader>vp :cd ~/code/socio<cr>:NERDTreeToggle<cr>
+" nnoremap <Leader>vp :cd ~/code/socio<cr>:NERDTreeToggle<cr>
 let NERDTreeShowHidden=1
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " CtrlP Stuff
 " I don't want to pull up these folders/files when calling CtrlP
-" set wildignore+=*/vendor/**
+set wildignore+=*/vendor/**
+set wildignore+=*/public/js/app.js
 set wildignore+=*/node_modules/**
 set wildignore+=*/tags
 nnoremap <leader>df :CtrlPBuffer<cr>
@@ -173,7 +178,7 @@ autocmd FileType php noremap <Leader>ps :call PhpSortUse()<CR>
 let g:php_namespace_sort_after_insert = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " vim blade stuff
-autocmd BufNewFile,BufRead *.blade.php set ft=html | set ft=phtml | set ft=blade " Fix blade auto-indent
+" autocmd BufNewFile,BufRead *.blade.php set ft=html | set ft=phtml | set ft=blade " Fix blade auto-indent
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-over stuff
 let g:over#command_line#enable_import_commandline_map = 0
@@ -185,7 +190,7 @@ vnoremap <leader>s :OverCommandLine<cr>s/
 " let deoplete#tag#cache_limit_size = 5000000
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " asyncrun stuff
-nnoremap <Leader>ct :NERDTreeRefreshRoot<cr>:CtrlPClearCache<cr>:AsyncRun ctags -R --exclude=node_modules<cr>
+nnoremap <Leader>C :NERDTreeRefreshRoot<cr>:CtrlPClearCache<cr>:AsyncRun ctags -R --exclude=node_modules<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline stuff
 " let g:airline#extensions#tabline#enabled = 1
@@ -234,12 +239,12 @@ nnoremap <leader>gr :Gread<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gm :Git checkout master<cr>
 nnoremap <leader>gb :Git branch<cr>
-nnoremap <leader>gx :Git branch -d 
-nnoremap <leader>gn :Git checkout -b 
-nnoremap <leader>gc :Git checkout 
-nnoremap <leader>gt :Gcommit -m '
+nnoremap <leader>gx :Git branch -d<space>
+nnoremap <leader>gn :Git checkout -b<space>
+nnoremap <leader>gc :Git checkout<space>
+nnoremap <leader>gt :Gcommit -m ''<left>
 nnoremap <leader>ga :Gcommit --amend<cr>
-nnoremap <leader>gM :Git merge 
+nnoremap <leader>gM :Git merge<space>
 nnoremap <leader>g. :Git add .<cr>
 nnoremap <leader>gp :Git push<cr>
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -274,6 +279,22 @@ function! s:show_documentation()
 	endif
 endfunction
 
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
 " Create mappings for function text object, requires document symbols feature of languageserver.
 xmap if <Plug>(coc-funcobj-i)
 xmap af <Plug>(coc-funcobj-a)
@@ -285,3 +306,22 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" tcomment stuff
+" nnoremap <silent> <Leader>c :TComment<cr><Esc>:w<cr>
+" vnoremap <silent> <Leader>c :TComment<cr><Esc>:w<cr>
+" autocmd FileType blade set commentstring={{--%s--}}
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Autoformat stuff
+noremap <leader>ff :Autoformat<cr>:w<cr>
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" for pug higlighting
+autocmd BufNewFile,BufRead *.pug set ft=html | set ft=jade | set ft=pug
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" nerdcommenter stuff
+let g:NERDCreateDefaultMappings = 0
+let g:NERDSpaceDelims = 1
+nmap <silent> gcz <plug>NERDCommenterToggle
+vmap <silent> gcz <plug>NERDCommenterToggle
+nmap <silent> <leader>c gcz<Esc>:w<cr>
+vmap <silent> <leader>c gcz<Esc>:w<cr>
