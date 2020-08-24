@@ -1,3 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
-let g:netrw_dirhist_1='/home/mahim/work/dna_testing/public/images'
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/home/boss/code/project'
+let g:netrw_dirhist_2='/home/boss/code/socio/.git'
+let g:netrw_dirhist_3='/home/boss/Desktop/m/.git'
+let g:netrw_dirhist_4='/home/boss/code/socio/.git'
+let g:netrw_dirhist_5='/home/boss/code/simplePOS/tests/Unit'

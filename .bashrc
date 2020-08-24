@@ -135,3 +135,4 @@ alias tl='tmux list-sessions'
 
 alias mn='sudo mount /dev/sda2 /media/boss/windows && sudo mount /dev/sda3 /media/boss/uncommon && sudo mount /dev/sda5 /media/boss/common'
 alias umn='sudo umount /dev/sda2 /dev/sda3 /dev/sda5'
+alias ..='cd ..'

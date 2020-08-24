@@ -7,10 +7,10 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""
 so ~/.nvim/script.vim
 let mapleader = ","
-set tabstop=4                    " a tab is four spaces
-" set softtabstop=4                " when hitting <BS>, pretend like a tab is removed, even if spaces
-" set expandtab                    " expand tabs by default (overloadable per file type later)
-set shiftwidth=4                 " number of spaces to use for autoindenting
+set tabstop=2                    " a tab is four spaces
+" set softtabstop=2                " when hitting <BS>, pretend like a tab is removed, even if spaces
+set expandtab                    " expand tabs by default (overloadable per file type later)
+set shiftwidth=2                 " number of spaces to use for autoindenting
 set backspace=indent,eol,start   " allow backspacing over everything in insert mode
 set tags=tags
 set relativenumber number
@@ -40,7 +40,7 @@ inoremap ;; <Esc>A;
 inoremap ;w <Esc>A;<Esc>:w<cr>
 inoremap ,, <Esc>A,
 inoremap ,{ <Esc>A{<cr>}<Esc>O
-inoremap ,> <Esc>A => 
+inoremap ,> <Esc>A =><space>
 nnoremap ( :bp<cr>
 nnoremap ) :bn<cr>
 nnoremap <leader>w :w<cr>
@@ -55,8 +55,16 @@ tnoremap <Esc> <C-\><C-n>
 " autocmd BufEnter * silent! normal! g`"
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Laravel Mappings
-nnoremap <leader>la :!php artisan 
-nnoremap <leader>lm :!php artisan make:
+nnoremap <leader>la :!php artisan<space>
+nnoremap <leader>ll :!php artisan make:
+nnoremap <leader>lc :!php artisan make:controller<space>
+nnoremap <leader>lm :!php artisan make:model<space>
+nnoremap <leader>lp :!php artisan make:policy<space>
+nnoremap <leader>lf :!php artisan make:factory<space>
+nnoremap <leader>lg :!php artisan make:migration<space>
+nnoremap <leader>ls :!php artisan make:seeder<space>
+nnoremap <leader>lr :!php artisan make:resource<space>
+nnoremap <leader>lt :!php artisan make:test<space>
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Ctags stuff
 " for list off ctags supported languages run: ctags --list-languages
@@ -115,10 +123,11 @@ Plug 'posva/vim-vue'
 Plug 'jceb/vim-orgmode'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vim-clap'
-Plug 'ap/vim-css-color'
+Plug 'ap/vim-css-color', {'on': []}
 Plug 'chiel92/vim-autoformat' " will install it if I need it badly
 " Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] } " it's not working
 Plug 'digitaltoad/vim-pug'
+Plug 'jeetsukumaran/vim-indentwise'
 
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -183,6 +192,7 @@ let g:php_namespace_sort_after_insert = 1
 " vim-over stuff
 let g:over#command_line#enable_import_commandline_map = 0
 nnoremap <leader>s :OverCommandLine<cr>s/
+nnoremap <leader>S :OverCommandLine<cr>%s/
 vnoremap <leader>s :OverCommandLine<cr>s/
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " deoplete stuff
@@ -190,7 +200,8 @@ vnoremap <leader>s :OverCommandLine<cr>s/
 " let deoplete#tag#cache_limit_size = 5000000
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " asyncrun stuff
-nnoremap <Leader>C :NERDTreeRefreshRoot<cr>:CtrlPClearCache<cr>:AsyncRun ctags -R --exclude=node_modules<cr>
+" nnoremap <Leader>C :NERDTreeRefreshRoot<cr>:CtrlPClearCache<cr>:AsyncRun ctags -R --exclude=node_modules --exclude=public<cr>
+nnoremap <Leader>C :NERDTreeRefreshRoot<cr>:CtrlPClearCache<cr>:AsyncRun ctags -R --exclude=*.js --exclude=*.html<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " vim-airline stuff
 " let g:airline#extensions#tabline#enabled = 1
@@ -199,6 +210,7 @@ nnoremap <Leader>C :NERDTreeRefreshRoot<cr>:CtrlPClearCache<cr>:AsyncRun ctags -
 let g:airline_theme='simple'
 " let g:airline_theme='solarized'
 " let g:airline_statusline_ontop=1
+let g:airline#extensions#tagbar#enabled = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " tagbar stuff
@@ -221,11 +233,17 @@ let g:neosnippet#disable_runtime_snippets = {
 " vim-test stuff
 " make test commands execute using dispatch.vim
 " let test#strategy = "neovim"
-nmap <silent> <leader>tn :TestNearest<CR>
-nmap <silent> <leader>tf :TestFile<CR>
-nmap <silent> <leader>ts :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-nmap <silent> <leader>tg :TestVisit<CR>
+imap <silent> <leader>tn <Esc>:w<cr>:TestNearest<CR>
+imap <silent> <leader>tf <Esc>:w<cr>:TestFile<CR>
+imap <silent> <leader>ts <Esc>:w<cr>:TestSuite<CR>
+imap <silent> <leader>tl <Esc>:w<cr>:TestLast<CR>
+imap <silent> <leader>tg <Esc>:w<cr>:TestVisit<CR>
+
+nmap <silent> <leader>tn <Esc>:w<cr>:TestNearest<CR>
+nmap <silent> <leader>tf <Esc>:w<cr>:TestFile<CR>
+nmap <silent> <leader>ts <Esc>:w<cr>:TestSuite<CR>
+nmap <silent> <leader>tl <Esc>:w<cr>:TestLast<CR>
+nmap <silent> <leader>tg <Esc>:w<cr>:TestVisit<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Vim Easy Align stuff
 xmap ga <Plug>(EasyAlign)
@@ -242,7 +260,7 @@ nnoremap <leader>gb :Git branch<cr>
 nnoremap <leader>gx :Git branch -d<space>
 nnoremap <leader>gn :Git checkout -b<space>
 nnoremap <leader>gc :Git checkout<space>
-nnoremap <leader>gt :Gcommit -m ''<left>
+nnoremap <leader>gt :Gcommit -m ""<left>
 nnoremap <leader>ga :Gcommit --amend<cr>
 nnoremap <leader>gM :Git merge<space>
 nnoremap <leader>g. :Git add .<cr>
@@ -269,43 +287,53 @@ let g:vue_pre_processors = []
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " coc stuff
 " Use K to show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	else
-		call CocAction('doHover')
-	endif
-endfunction
+""""""""
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
+"
+" function! s:show_documentation()
+" 	if (index(['vim','help'], &filetype) >= 0)
+" 		execute 'h '.expand('<cword>')
+" 	else
+" 		call CocAction('doHover')
+" 	endif
+" endfunction
+""""""""""
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" """"""""""""
+" inoremap <silent><expr> <TAB>
+" 			\ pumvisible() ? "\<C-n>" :
+" 			\ <SID>check_back_space() ? "\<TAB>" :
+" 			\ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"
+" function! s:check_back_space() abort
+" 	let col = col('.') - 1
+" 	return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
+" """"""""""""""
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" """"""""""""""
+" inoremap <silent><expr> <c-space> coc#refresh()
+" """"""""""""""
 
 " Create mappings for function text object, requires document symbols feature of languageserver.
-xmap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap if <Plug>(coc-funcobj-i)
-omap af <Plug>(coc-funcobj-a)
+" """"""""""""""
+" xmap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap if <Plug>(coc-funcobj-i)
+" omap af <Plug>(coc-funcobj-a)
+" """"""""""""""
 
 " Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
+" """"""""""""""
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gR <Plug>(coc-references)
+" """"""""""""""
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " tcomment stuff
 " nnoremap <silent> <Leader>c :TComment<cr><Esc>:w<cr>
@@ -318,10 +346,35 @@ noremap <leader>ff :Autoformat<cr>:w<cr>
 " for pug higlighting
 autocmd BufNewFile,BufRead *.pug set ft=html | set ft=jade | set ft=pug
 """""""""""""""""""""""""""""""""""""""""""""""""""
-" nerdcommenter stuff
+" nerdcommenter and Tcomment stuff
 let g:NERDCreateDefaultMappings = 0
 let g:NERDSpaceDelims = 1
+" vue js comment support
+let g:ft = ''
+fu! NERDCommenter_before()
+	if &ft == 'vue'
+		let g:ft = 'vue'
+		let stack = synstack(line('.'), col('.'))
+		if len(stack) > 0
+			let syn = synIDattr((stack)[0], 'name')
+			if len(syn) > 0
+				let syn = tolower(syn)
+				exe 'setf '.syn
+			endif
+		endif
+	endif
+endfu
+fu! NERDCommenter_after()
+	if g:ft == 'vue'
+		setf vue
+		let g:ft = ''
+	endif
+endfu
+" Enable nerdcommenter mappings
 nmap <silent> gcz <plug>NERDCommenterToggle
 vmap <silent> gcz <plug>NERDCommenterToggle
-nmap <silent> <leader>c gcz<Esc>:w<cr>
-vmap <silent> <leader>c gcz<Esc>:w<cr>
+nmap <silent> <c-m> gcz<Esc>:w<cr>
+vmap <silent> <c-m> gcz<Esc>:w<cr>
+" Enable T-Comment mappings
+nnoremap <silent> <Leader>c :TComment<cr><Esc>:w<cr>
+vnoremap <silent> <Leader>c :TComment<cr><Esc>:w<cr>
