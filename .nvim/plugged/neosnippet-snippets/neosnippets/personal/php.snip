@@ -1,31 +1,35 @@
 snippet m
 abbr public function () {}
-	public function ${1:#:FunctionName}(${2}){
+	public function ${1:#:FunctionName}(${2})
+    {
 		${3:TARGET}
 	}
 
 snippet pm
 abbr public function () {}
-	private function ${1:#:FunctionName}(${2}){
+	private function ${1:#:FunctionName}(${2})
+    {
 		${3:TARGET}
 	}
 
 snippet rm
 abbr protected function () {}
-	protected function ${1:#:FunctionName}(${2}){
+	protected function ${1:#:FunctionName}(${2})
+    {
 		${3:TARGET}
 	}
 
 snippet tm
 abbr test function () {}
     /** @test */
-	public function ${1:#:FunctionName}(${2}){
+	public function ${1:#:FunctionName}(${2})
+    {
 		${3:TARGET}
 	}
 
 snippet cm
 abbr closure function () {}
-	function(${1}){
+	function (${1}) {
     ${2:TARGET}
 	}
 

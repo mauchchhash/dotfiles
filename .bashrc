@@ -121,11 +121,14 @@ export NVM_DIR="/home/boss/.nvm"
 
 export PATH=~/.config/composer/vendor/bin:$PATH
 export PATH=~/.config/composer/vendor:$PATH
+export PATH=~/Android/Sdk/platform-tools:$PATH
+
+export CAPACITOR_ANDROID_STUDIO_PATH=/home/boss/Android/android-studio/bin/studio.sh
 
 # for laravel
 alias pa='php artisan '
 alias pt='php artisan tinker'
-alias ps='php artisan serve'
+alias pss='php artisan serve'
 
 #for tmux
 alias tn='tmux new -s '
@@ -136,3 +139,5 @@ alias tl='tmux list-sessions'
 alias mn='sudo mount /dev/sda2 /media/boss/windows && sudo mount /dev/sda3 /media/boss/uncommon && sudo mount /dev/sda5 /media/boss/common'
 alias umn='sudo umount /dev/sda2 /dev/sda3 /dev/sda5'
 alias ..='cd ..'
+
+alias ns_clear='rm -rf ~/.local/share/nvim/swap'

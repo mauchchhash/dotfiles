@@ -7,10 +7,10 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""
 so ~/.nvim/script.vim
 let mapleader = ","
-set tabstop=2                    " a tab is four spaces
-" set softtabstop=2                " when hitting <BS>, pretend like a tab is removed, even if spaces
+set tabstop=4                    " a tab is four spaces
+" set softtabstop=4                " when hitting <BS>, pretend like a tab is removed, even if spaces
 set expandtab                    " expand tabs by default (overloadable per file type later)
-set shiftwidth=2                 " number of spaces to use for autoindenting
+set shiftwidth=4                 " number of spaces to use for autoindenting
 set backspace=indent,eol,start   " allow backspacing over everything in insert mode
 set tags=tags
 set relativenumber number
@@ -123,11 +123,15 @@ Plug 'posva/vim-vue'
 Plug 'jceb/vim-orgmode'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'liuchengxu/vim-clap'
-Plug 'ap/vim-css-color', {'on': []}
+" Plug 'ap/vim-css-color', {'on': []}
+Plug 'ap/vim-css-color'
 Plug 'chiel92/vim-autoformat' " will install it if I need it badly
 " Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] } " it's not working
 Plug 'digitaltoad/vim-pug'
 Plug 'jeetsukumaran/vim-indentwise'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'AndrewRadev/tagalong.vim'
+Plug 'KabbAmine/vCoolor.vim'
 
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -147,9 +151,18 @@ let NERDTreeShowHidden=1
 " CtrlP Stuff
 " I don't want to pull up these folders/files when calling CtrlP
 set wildignore+=*/vendor/**
+set wildignore+=*/storage/**
+set wildignore+=*/.cache/**
 set wildignore+=*/public/js/app.js
+set wildignore+=*/public/plugins/**
 set wildignore+=*/node_modules/**
+set wildignore+=*/android/**
+set wildignore+=*/ios/**
+set wildignore+=*/dist/**
 set wildignore+=*/tags
+set wildignore+=*/*.webp
+set wildignore+=*/*.jpeg
+set wildignore+=*/*.jpg
 nnoremap <leader>df :CtrlPBuffer<cr>
 
 " let g:ctrlp_user_command =
@@ -288,15 +301,15 @@ let g:vue_pre_processors = []
 " coc stuff
 " Use K to show documentation in preview window
 """"""""
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
-"
-" function! s:show_documentation()
-" 	if (index(['vim','help'], &filetype) >= 0)
-" 		execute 'h '.expand('<cword>')
-" 	else
-" 		call CocAction('doHover')
-" 	endif
-" endfunction
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+	if (index(['vim','help'], &filetype) >= 0)
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
+endfunction
 """"""""""
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -329,7 +342,7 @@ let g:vue_pre_processors = []
 
 " Remap keys for gotos
 " """"""""""""""
-" nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gd <Plug>(coc-definition)
 " nmap <silent> gy <Plug>(coc-type-definition)
 " nmap <silent> gi <Plug>(coc-implementation)
 " nmap <silent> gR <Plug>(coc-references)
