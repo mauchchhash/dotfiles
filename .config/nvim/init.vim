@@ -22,6 +22,7 @@ set splitbelow
 set splitright
 set cursorline
 set autoread
+set nrformats=alpha
 " set autoindent                  " always set autoindenting on
 " set copyindent                  " copy the previous indentation on autoindenting
 """""""""""""""""""""""""""""""""""""""""""""""""""
@@ -39,7 +40,7 @@ inoremap <C-l> <Esc>A
 inoremap ;; <Esc>A;
 inoremap ;w <Esc>A;<Esc>:w<cr>
 inoremap ,, <Esc>A,
-inoremap ,{ <Esc>A{<cr>}<Esc>O
+inoremap ,{ <Esc>A<cr>{<cr>}<Esc>O
 inoremap ,> <Esc>A =><space>
 nnoremap ( :bp<cr>
 nnoremap ) :bn<cr>
@@ -72,20 +73,20 @@ nnoremap <leader>lt :!php artisan make:test<space>
 " ab ct !ctags -R --exclude=.git --languages=PHP,Java<cr>
 " ab ct !ctags -R<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.nvim/plugged')
 
 Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mattn/emmet-vim'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-entire'
+Plug 'kana/vim-textobj-line'
 Plug 'easymotion/vim-easymotion'
 Plug 'jiangmiao/auto-pairs'
-Plug 'kana/vim-textobj-line'
-" Plug 'captbaritone/better-indent-support-for-php-with-html', { 'for': 'php' }
 Plug 'tomtom/tcomment_vim'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tmhedberg/matchit'
@@ -93,8 +94,8 @@ Plug 'vim-scripts/ReplaceWithRegister'
 Plug 'arnaud-lb/vim-php-namespace', { 'for': 'php' }
 Plug 'jwalton512/vim-blade', { 'for': 'php' }
 Plug 'osyo-manga/vim-over'
-Plug 'Shougo/deoplete.nvim', { 'on': [] }
-Plug 'deoplete-plugins/deoplete-tag', { 'on': [] }
+" Plug 'Shougo/deoplete.nvim', { 'on': [] }
+" Plug 'deoplete-plugins/deoplete-tag', { 'on': [] }
 Plug 'skywind3000/asyncrun.vim'
 Plug 'tpope/vim-repeat'
 Plug 'bling/vim-airline'
@@ -120,14 +121,15 @@ Plug 'AndrewRadev/sideways.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'FooSoft/vim-argwrap'
 Plug 'posva/vim-vue'
-Plug 'jceb/vim-orgmode'
+" Plug 'jceb/vim-orgmode'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'yaegassy/coc-tailwindcss',  {'do': 'npm install && npm run build', 'branch': 'feat/support-v3-and-use-server-pkg'} " for tailwind 3
 Plug 'liuchengxu/vim-clap'
 " Plug 'ap/vim-css-color', {'on': []}
 Plug 'ap/vim-css-color'
 Plug 'chiel92/vim-autoformat' " will install it if I need it badly
 " Plug 'dNitro/vim-pug-complete', { 'for': ['jade', 'pug'] } " it's not working
-Plug 'digitaltoad/vim-pug'
+" Plug 'digitaltoad/vim-pug'
 Plug 'jeetsukumaran/vim-indentwise'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'AndrewRadev/tagalong.vim'
@@ -153,6 +155,7 @@ let NERDTreeShowHidden=1
 set wildignore+=*/vendor/**
 set wildignore+=*/storage/**
 set wildignore+=*/.cache/**
+set wildignore+=*/cache/**
 set wildignore+=*/public/js/app.js
 set wildignore+=*/public/plugins/**
 set wildignore+=*/node_modules/**
@@ -263,7 +266,7 @@ xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " fugitive stuff
-nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gs :Git<cr>
 nnoremap <leader>gl :Git log<cr>
 nnoremap <leader>gw :Gwrite<cr>
 nnoremap <leader>gr :Gread<cr>
@@ -273,8 +276,8 @@ nnoremap <leader>gb :Git branch<cr>
 nnoremap <leader>gx :Git branch -d<space>
 nnoremap <leader>gn :Git checkout -b<space>
 nnoremap <leader>gc :Git checkout<space>
-nnoremap <leader>gt :Gcommit -m ""<left>
-nnoremap <leader>ga :Gcommit --amend<cr>
+nnoremap <leader>gt :Git commit -m ""<left>
+nnoremap <leader>ga :Git commit --amend<cr>
 nnoremap <leader>gM :Git merge<space>
 nnoremap <leader>g. :Git add .<cr>
 nnoremap <leader>gp :Git push<cr>
