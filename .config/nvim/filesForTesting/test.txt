@@ -1,0 +1,5 @@
+Leap allows you to jump to any positions in the visible window / tab page 
+area by entering a 2-character search pattern, and then potentially a "label" character to 
+choose among multiple matches, similar to Sneak. The novel idea in Leap is its 
+"clairvoyant" ability: it maps possible 
+futures, and shows you which key(s) you will need to press before you actually need to do that.
