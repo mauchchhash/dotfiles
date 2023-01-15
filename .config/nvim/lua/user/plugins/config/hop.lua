@@ -15,9 +15,9 @@ vim.keymap.set('n', '<leader><leader>b', function()
     hop.hint_words({ direction = directions.BEFORE_CURSOR })
 end, { remap = true, silent = true })
 
---[[ vim.keymap.set('n', '<leader><leader>e', function()
+vim.keymap.set('n', '<leader><leader>e', function()
     hop.hint_anywhere()
-end, { remap = true, silent = true }) ]]
+end, { remap = true, silent = true })
 
 
 -- vim.keymap.set('', 'f', function()

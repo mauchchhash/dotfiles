@@ -56,7 +56,7 @@ return packer.startup(function(use)
     use "tpope/vim-repeat"
     use "FooSoft/vim-argwrap"
     use({ "akinsho/toggleterm.nvim", config = "require('user.plugins.config.toggleterm')" })
-    ---- use { "karb94/neoscroll.nvim", config = "require('user.plugins.config.neoscroll')" }
+    -- use { "karb94/neoscroll.nvim", config = "require('user.plugins.config.neoscroll')" }
 
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', config = "require('user.plugins.config.treesitter')" }
     ---- use { "JoosepAlviste/nvim-ts-context-commentstring", after = 'nvim-treesitter' }
@@ -87,13 +87,24 @@ return packer.startup(function(use)
     -- lsp plugins
     use { "williamboman/mason.nvim", after = "telescope.nvim" } -- lsp servers installers
     use { "williamboman/mason-lspconfig.nvim", after = "mason.nvim" } -- needed for mason.nvim to work with nvim-lspconfig
-    use { "neovim/nvim-lspconfig", after = "mason-lspconfig.nvim", config = "require( 'user.plugins.config.lsp' )" }
+    use({ "glepnir/lspsaga.nvim", branch = "main", config = "require('user.plugins.config.lsp.lspsaga')" })
+    use { "neovim/nvim-lspconfig", after = { "mason-lspconfig.nvim", "lspsaga.nvim" },
+        config = "require( 'user.plugins.config.lsp' )" }
     use { "jose-elias-alvarez/null-ls.nvim", after = "nvim-lspconfig",
         config = "require( 'user.plugins.config.lsp.null-ls' )" }
+    use { "ray-x/lsp_signature.nvim", after = "nvim-lspconfig", config = "require 'lsp_signature'.setup()" }
+    use { 'weilbith/nvim-code-action-menu', config = "require('user.plugins.config.code-action-menu')" }
+    use { 'j-hui/fidget.nvim', config = "require'fidget'.setup{}" }
+    use { "folke/trouble.nvim", requires = "kyazdani42/nvim-web-devicons",
+        config = "require('user.plugins.config.trouble')" }
+
+    use { 'simrat39/symbols-outline.nvim', config = "require('user.plugins.config.symbols-outline')" }
+
     use { "kdheepak/lazygit.nvim", config = "require('user.plugins.config.lazygit')" }
     use { "tpope/vim-fugitive", config = "require('user.plugins.config.fugitive')" }
     use { "lewis6991/gitsigns.nvim", config = "require('user.plugins.config.gitsigns')" }
     use { 'phaazon/hop.nvim', branch = 'v2', config = "require('user.plugins.config.hop')" }
+    use { 'ggandor/leap.nvim', config = "require('leap').add_default_mappings()" }
     --
     use { 'lukas-reineke/indent-blankline.nvim', config = "require('user.plugins.config.indent-blankline')" }
     use { 'tpope/vim-unimpaired' }

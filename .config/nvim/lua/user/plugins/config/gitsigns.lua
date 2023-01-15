@@ -46,3 +46,10 @@ gitsigns.setup {
         enable = false,
     },
 }
+local map = vim.keymap.set
+-- local e_opts = { expr = true }
+-- local s_opts = { silent = true }
+local n_opts = { noremap = true, silent = false }
+local ns_opts = { noremap = true, silent = true }
+map('n', 'gn', ":Gitsigns next_hunk<cr>", ns_opts)
+map('n', 'gp', ":Gitsigns prev_hunk<cr>", ns_opts)

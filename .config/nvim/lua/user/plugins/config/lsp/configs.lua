@@ -13,7 +13,8 @@ local servers = {
     'phpactor',
     'intelephense',
     -- 'eslint',
-    'tsserver'
+    'tsserver',
+    'volar'
 }
 
 mason.setup()

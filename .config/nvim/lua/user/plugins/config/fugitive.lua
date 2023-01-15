@@ -15,3 +15,18 @@ nnoremap <leader>gM :Git merge<space>
 nnoremap <leader>g. :Git add .<cr>
 nnoremap <leader>gp :Git push<cr>
 ]])
+
+-- Fugitive auto commands (NOT WORKING!!!)
+-- local map = vim.keymap.set
+-- local api = vim.api
+--
+-- local ns_opts = { noremap = true, silent = true }
+--
+-- local fugitiveGroup = api.nvim_create_augroup("Fugitive", { clear = true })
+-- api.nvim_create_autocmd("FileType", {
+--     pattern = 'fugitive',
+--     callback = function()
+--         map("n", [[q]], ":q<cr>", ns_opts)
+--     end,
+--     group = fugitiveGroup,
+-- })

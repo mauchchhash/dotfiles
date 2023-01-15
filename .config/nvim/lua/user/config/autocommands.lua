@@ -13,25 +13,15 @@ api.nvim_create_autocmd("TextYankPost", {
 })
 
 
--- PHP file auto commands
-local phpGroup = api.nvim_create_augroup("PHPFile", { clear = true })
-api.nvim_create_autocmd("FileType", {
-    pattern = 'php',
-    callback = function()
-        map("i", [[,>]], "<Esc>A =><space>", ns_opts)
-    end,
-    group = phpGroup,
-})
-
--- Fugitive auto commands
-local fugitiveGroup = api.nvim_create_augroup("Fugitive", { clear = true })
-api.nvim_create_autocmd("FileType", {
-    pattern = 'fugitive',
-    callback = function()
-        map("n", [[q]], ":q<cr>", ns_opts)
-    end,
-    group = fugitiveGroup,
-})
+-- PHP file auto commands (NOT WORKING!!!!)
+-- local phpGroup = api.nvim_create_augroup("PHPFile", { clear = true })
+-- api.nvim_create_autocmd("FileType", {
+--     pattern = 'php',
+--     callback = function()
+--         -- map("i", [[,>]], "<Esc>A =><space>", ns_opts)
+--     end,
+--     group = phpGroup,
+-- })
 
 vim.cmd([[ autocmd BufWritePre * lua vim.lsp.buf.format() ]])
 
